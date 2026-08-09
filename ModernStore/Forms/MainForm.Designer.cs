@@ -37,6 +37,7 @@
             btnCerrarSesion = new Button();
             label1 = new Label();
             lblUsuario = new Label();
+            btnProveedores = new Button();
             SuspendLayout();
             // 
             // btnPOS
@@ -85,7 +86,7 @@
             // btnUsuarios
             // 
             btnUsuarios.Font = new Font("Segoe UI", 12F);
-            btnUsuarios.Location = new Point(60, 280);
+            btnUsuarios.Location = new Point(60, 268);
             btnUsuarios.Name = "btnUsuarios";
             btnUsuarios.Size = new Size(173, 32);
             btnUsuarios.TabIndex = 4;
@@ -95,7 +96,7 @@
             // btnVentas
             // 
             btnVentas.Font = new Font("Segoe UI", 12F);
-            btnVentas.Location = new Point(239, 280);
+            btnVentas.Location = new Point(239, 268);
             btnVentas.Name = "btnVentas";
             btnVentas.Size = new Size(173, 32);
             btnVentas.TabIndex = 5;
@@ -133,11 +134,23 @@
             lblUsuario.TabIndex = 8;
             lblUsuario.Text = "Usuario | Rol";
             // 
+            // btnProveedores
+            // 
+            btnProveedores.Font = new Font("Segoe UI", 12F);
+            btnProveedores.Location = new Point(60, 317);
+            btnProveedores.Name = "btnProveedores";
+            btnProveedores.Size = new Size(173, 32);
+            btnProveedores.TabIndex = 9;
+            btnProveedores.Text = "🚚 Proveedores";
+            btnProveedores.UseVisualStyleBackColor = true;
+            btnProveedores.Click += btnProveedores_Click;
+            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(477, 450);
+            Controls.Add(btnProveedores);
             Controls.Add(lblUsuario);
             Controls.Add(label1);
             Controls.Add(btnCerrarSesion);
@@ -164,5 +177,6 @@
         private Button btnCerrarSesion;
         private Label label1;
         private Label lblUsuario;
+        private Button btnProveedores;
     }
 }

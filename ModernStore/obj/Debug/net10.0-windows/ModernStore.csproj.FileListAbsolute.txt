@@ -61,3 +61,5 @@ C:\Users\arobe\source\repos\ModernStore\ModernStore\obj\Debug\net10.0-windows\Mo
 C:\Users\arobe\source\repos\ModernStore\ModernStore\obj\Debug\net10.0-windows\ModernStore.Forms.ProductoForm.resources
 C:\Users\arobe\source\repos\ModernStore\ModernStore\obj\Debug\net10.0-windows\ModernStore.Forms.CategoriaForm.resources
 C:\Users\arobe\source\repos\ModernStore\ModernStore\obj\Debug\net10.0-windows\ModernStore.Forms.CategoriasForm.resources
+C:\Users\arobe\source\repos\ModernStore\ModernStore\obj\Debug\net10.0-windows\ModernStore.Forms.ProveedoresForm.resources
+C:\Users\arobe\source\repos\ModernStore\ModernStore\obj\Debug\net10.0-windows\ModernStore.Forms.ProveedorForm.resources
