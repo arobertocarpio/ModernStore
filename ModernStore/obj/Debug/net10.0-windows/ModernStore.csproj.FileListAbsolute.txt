@@ -65,3 +65,6 @@ C:\Users\arobe\source\repos\ModernStore\ModernStore\obj\Debug\net10.0-windows\Mo
 C:\Users\arobe\source\repos\ModernStore\ModernStore\obj\Debug\net10.0-windows\ModernStore.Forms.ProveedorForm.resources
 C:\Users\arobe\source\repos\ModernStore\ModernStore\obj\Debug\net10.0-windows\ModernStore.Forms.ClienteForm.resources
 C:\Users\arobe\source\repos\ModernStore\ModernStore\obj\Debug\net10.0-windows\ModernStore.Forms.ClientesForm.resources
+C:\Users\arobe\source\repos\ModernStore\ModernStore\obj\Debug\net10.0-windows\ModernStore.Forms.UsuarioForm.resources
+C:\Users\arobe\source\repos\ModernStore\ModernStore\obj\Debug\net10.0-windows\ModernStore.Forms.UsuariosForm.resources
+C:\Users\arobe\source\repos\ModernStore\ModernStore\obj\Debug\net10.0-windows\ModernStore.Forms.CambiarContrasenaForm.resources

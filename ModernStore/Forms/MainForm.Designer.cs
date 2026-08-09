@@ -93,6 +93,7 @@
             btnUsuarios.TabIndex = 4;
             btnUsuarios.Text = "👤  Usuarios";
             btnUsuarios.UseVisualStyleBackColor = true;
+            btnUsuarios.Click += btnUsuarios_Click;
             // 
             // btnVentas
             // 

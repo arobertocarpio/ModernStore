@@ -4,6 +4,9 @@
     <Compile Update="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="Forms\CambiarContrasenaForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="Forms\CategoriasForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -35,6 +38,12 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="Forms\ProveedorForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\UsuarioForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\UsuariosForm.cs">
       <SubType>Form</SubType>
     </Compile>
   </ItemGroup>
