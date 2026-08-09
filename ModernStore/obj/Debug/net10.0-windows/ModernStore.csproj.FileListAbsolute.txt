@@ -57,3 +57,5 @@ C:\Users\arobe\source\repos\ModernStore\ModernStore\obj\Debug\net10.0-windows\Mo
 C:\Users\arobe\source\repos\ModernStore\ModernStore\obj\Debug\net10.0-windows\ModernStore.sourcelink.json
 C:\Users\arobe\source\repos\ModernStore\ModernStore\obj\Debug\net10.0-windows\ModernStore.Forms.LoginForm.resources
 C:\Users\arobe\source\repos\ModernStore\ModernStore\obj\Debug\net10.0-windows\ModernStore.Forms.MainForm.resources
+C:\Users\arobe\source\repos\ModernStore\ModernStore\obj\Debug\net10.0-windows\ModernStore.Forms.ProductosForm.resources
+C:\Users\arobe\source\repos\ModernStore\ModernStore\obj\Debug\net10.0-windows\ModernStore.Forms.ProductoForm.resources

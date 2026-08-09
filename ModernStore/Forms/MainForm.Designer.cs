@@ -59,6 +59,7 @@
             btnProductos.TabIndex = 1;
             btnProductos.Text = "📦  Productos";
             btnProductos.UseVisualStyleBackColor = true;
+            btnProductos.Click += btnProductos_Click;
             // 
             // btnCategorias
             // 

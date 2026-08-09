@@ -34,8 +34,22 @@ namespace ModernStore.Forms
 
             if (resultado == DialogResult.Yes)
             {
+                LoginForm loginForm = new LoginForm();
+
+                Hide();
+
+                loginForm.ShowDialog();
+
                 Close();
             }
+        }
+
+        private void btnProductos_Click(object sender, EventArgs e)
+        {
+            using ProductosForm productosForm =
+                new ProductosForm(usuario);
+
+            productosForm.ShowDialog();
         }
     }
 }
