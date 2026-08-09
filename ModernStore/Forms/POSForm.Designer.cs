@@ -38,6 +38,7 @@
             btnCobrar = new Button();
             label3 = new Label();
             label4 = new Label();
+            btnQuitar = new Button();
             ((System.ComponentModel.ISupportInitialize)dgvProductos).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dgvCarrito).BeginInit();
             SuspendLayout();
@@ -131,11 +132,22 @@
             label4.TabIndex = 9;
             label4.Text = "CARRITO";
             // 
+            // btnQuitar
+            // 
+            btnQuitar.Location = new Point(181, 217);
+            btnQuitar.Name = "btnQuitar";
+            btnQuitar.Size = new Size(119, 23);
+            btnQuitar.TabIndex = 10;
+            btnQuitar.Text = "Quitar Producto";
+            btnQuitar.UseVisualStyleBackColor = true;
+            btnQuitar.Click += btnQuitar_Click;
+            // 
             // POSForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 503);
+            Controls.Add(btnQuitar);
             Controls.Add(label4);
             Controls.Add(label3);
             Controls.Add(btnCobrar);
@@ -166,5 +178,6 @@
         private Button btnCobrar;
         private Label label3;
         private Label label4;
+        private Button btnQuitar;
     }
 }

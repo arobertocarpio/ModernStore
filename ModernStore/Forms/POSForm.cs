@@ -9,12 +9,16 @@ namespace ModernStore.Forms
         private readonly ProductoRepository productoRepository;
         private readonly VentaRepository ventaRepository;
 
+        private readonly UsuarioSesion usuario;
+
         private List<Producto> productos = new();
         private List<CarritoItem> carrito = new();
 
-        public POSForm()
+        public POSForm(UsuarioSesion usuario)
         {
             InitializeComponent();
+
+            this.usuario = usuario;
 
             productoRepository = new ProductoRepository();
             ventaRepository = new VentaRepository();
@@ -60,9 +64,24 @@ namespace ModernStore.Forms
                 return;
             }
 
-            Producto producto = (Producto)dgvProductos.CurrentRow.DataBoundItem;
+            Producto producto =
+                (Producto)dgvProductos.CurrentRow.DataBoundItem;
 
-            var item = carrito.FirstOrDefault(c => c.IdProducto == producto.IdProducto);
+            var item = carrito.FirstOrDefault(
+                c => c.IdProducto == producto.IdProducto
+            );
+
+            int cantidadActual = item?.Cantidad ?? 0;
+
+            if (cantidadActual >= producto.Stock)
+            {
+                MessageBox.Show(
+                    $"No hay suficiente stock.\n\n" +
+                    $"Stock disponible: {producto.Stock}"
+                );
+
+                return;
+            }
 
             if (item == null)
             {
@@ -90,12 +109,33 @@ namespace ModernStore.Forms
                 return;
             }
 
+            decimal total = carrito.Sum(x => x.Subtotal);
+
+            DialogResult confirmacion = MessageBox.Show(
+                $"¿Registrar la venta por ${total:N2}?",
+                "Confirmar venta",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question
+            );
+
+            if (confirmacion != DialogResult.Yes)
+            {
+                return;
+            }
+
             try
             {
                 DataTable detalle = new DataTable();
 
-                detalle.Columns.Add("id_producto", typeof(int));
-                detalle.Columns.Add("cantidad", typeof(int));
+                detalle.Columns.Add(
+                    "id_producto",
+                    typeof(int)
+                );
+
+                detalle.Columns.Add(
+                    "cantidad",
+                    typeof(int)
+                );
 
                 foreach (CarritoItem item in carrito)
                 {
@@ -105,10 +145,8 @@ namespace ModernStore.Forms
                     );
                 }
 
-                int idUsuario = 1;
-
                 var resultado = ventaRepository.Registrar(
-                    idUsuario,
+                    usuario.IdUsuario,
                     null,
                     detalle
                 );
@@ -130,6 +168,25 @@ namespace ModernStore.Forms
                     $"No se pudo registrar la venta.\n\n{ex.Message}"
                 );
             }
+        }
+
+        private void btnQuitar_Click(object sender, EventArgs e)
+        {
+            if (dgvCarrito.CurrentRow == null)
+            {
+                MessageBox.Show(
+                    "Selecciona un producto del carrito."
+                );
+
+                return;
+            }
+
+            CarritoItem item =
+                (CarritoItem)dgvCarrito.CurrentRow.DataBoundItem;
+
+            carrito.Remove(item);
+
+            ActualizarCarrito();
         }
     }
 }
