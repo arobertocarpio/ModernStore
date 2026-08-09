@@ -1,6 +1,6 @@
 ﻿namespace ModernStore.Forms
 {
-    partial class ProveedoresForm
+    partial class ClientesForm
     {
         /// <summary>
         /// Required designer variable.
@@ -31,11 +31,11 @@
             label1 = new Label();
             label2 = new Label();
             txtBuscar = new TextBox();
-            dgvProveedores = new DataGridView();
+            dgvClientes = new DataGridView();
             btnNuevo = new Button();
             btnEditar = new Button();
             btnEliminar = new Button();
-            ((System.ComponentModel.ISupportInitialize)dgvProveedores).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)dgvClientes).BeginInit();
             SuspendLayout();
             // 
             // label1
@@ -44,15 +44,15 @@
             label1.Font = new Font("Segoe UI", 14F);
             label1.Location = new Point(12, 9);
             label1.Name = "label1";
-            label1.Size = new Size(143, 25);
+            label1.Size = new Size(110, 25);
             label1.TabIndex = 0;
-            label1.Text = "🚚 Proveedores";
+            label1.Text = "👥  Clientes\n";
             // 
             // label2
             // 
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI", 12F);
-            label2.Location = new Point(12, 44);
+            label2.Location = new Point(12, 53);
             label2.Name = "label2";
             label2.Size = new Size(59, 21);
             label2.TabIndex = 1;
@@ -60,24 +60,24 @@
             // 
             // txtBuscar
             // 
-            txtBuscar.Location = new Point(77, 44);
+            txtBuscar.Location = new Point(77, 55);
             txtBuscar.Name = "txtBuscar";
-            txtBuscar.Size = new Size(368, 23);
+            txtBuscar.Size = new Size(443, 23);
             txtBuscar.TabIndex = 2;
             txtBuscar.TextChanged += txtBuscar_TextChanged;
             // 
-            // dgvProveedores
+            // dgvClientes
             // 
-            dgvProveedores.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvProveedores.Location = new Point(12, 73);
-            dgvProveedores.Name = "dgvProveedores";
-            dgvProveedores.Size = new Size(776, 316);
-            dgvProveedores.TabIndex = 3;
+            dgvClientes.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvClientes.Location = new Point(12, 84);
+            dgvClientes.Name = "dgvClientes";
+            dgvClientes.Size = new Size(776, 300);
+            dgvClientes.TabIndex = 3;
             // 
             // btnNuevo
             // 
             btnNuevo.Font = new Font("Segoe UI", 12F);
-            btnNuevo.Location = new Point(12, 395);
+            btnNuevo.Location = new Point(12, 390);
             btnNuevo.Name = "btnNuevo";
             btnNuevo.Size = new Size(75, 32);
             btnNuevo.TabIndex = 4;
@@ -88,7 +88,7 @@
             // btnEditar
             // 
             btnEditar.Font = new Font("Segoe UI", 12F);
-            btnEditar.Location = new Point(93, 395);
+            btnEditar.Location = new Point(93, 390);
             btnEditar.Name = "btnEditar";
             btnEditar.Size = new Size(75, 32);
             btnEditar.TabIndex = 5;
@@ -99,7 +99,7 @@
             // btnEliminar
             // 
             btnEliminar.Font = new Font("Segoe UI", 12F);
-            btnEliminar.Location = new Point(713, 395);
+            btnEliminar.Location = new Point(713, 390);
             btnEliminar.Name = "btnEliminar";
             btnEliminar.Size = new Size(75, 32);
             btnEliminar.TabIndex = 6;
@@ -107,7 +107,7 @@
             btnEliminar.UseVisualStyleBackColor = true;
             btnEliminar.Click += btnEliminar_Click;
             // 
-            // ProveedoresForm
+            // ClientesForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -115,13 +115,13 @@
             Controls.Add(btnEliminar);
             Controls.Add(btnEditar);
             Controls.Add(btnNuevo);
-            Controls.Add(dgvProveedores);
+            Controls.Add(dgvClientes);
             Controls.Add(txtBuscar);
             Controls.Add(label2);
             Controls.Add(label1);
-            Name = "ProveedoresForm";
-            Text = "ProveedoresForm";
-            ((System.ComponentModel.ISupportInitialize)dgvProveedores).EndInit();
+            Name = "ClientesForm";
+            Text = "ClientesForm";
+            ((System.ComponentModel.ISupportInitialize)dgvClientes).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -131,7 +131,7 @@
         private Label label1;
         private Label label2;
         private TextBox txtBuscar;
-        private DataGridView dgvProveedores;
+        private DataGridView dgvClientes;
         private Button btnNuevo;
         private Button btnEditar;
         private Button btnEliminar;

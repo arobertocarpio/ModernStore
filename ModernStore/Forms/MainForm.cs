@@ -71,5 +71,13 @@ namespace ModernStore.Forms
 
             Close();
         }
+
+        private void btnClientes_Click(object sender, EventArgs e)
+        {
+            using ClientesForm clientesForm =
+                new ClientesForm(usuario);
+
+            clientesForm.ShowDialog();
+        }
     }
 }

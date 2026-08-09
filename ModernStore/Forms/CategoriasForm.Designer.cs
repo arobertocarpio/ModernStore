@@ -64,6 +64,7 @@
             txtBuscar.Name = "txtBuscar";
             txtBuscar.Size = new Size(319, 23);
             txtBuscar.TabIndex = 2;
+            txtBuscar.TextChanged += txtBuscar_TextChanged;
             // 
             // dgvCategorias
             // 

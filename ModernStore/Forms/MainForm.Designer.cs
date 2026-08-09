@@ -82,6 +82,7 @@
             btnClientes.TabIndex = 3;
             btnClientes.Text = "👥  Clientes\n";
             btnClientes.UseVisualStyleBackColor = true;
+            btnClientes.Click += btnClientes_Click;
             // 
             // btnUsuarios
             // 
