@@ -11,18 +11,21 @@ namespace ModernStore.Repositories
         {
             var categorias = new List<Categoria>();
 
-            using SqlConnection connection = Database.GetConnection();
+            using SqlConnection connection =
+                Database.GetConnection();
 
             using SqlCommand command = new SqlCommand(
                 "sp_Categoria_Listar",
                 connection
             );
 
-            command.CommandType = CommandType.StoredProcedure;
+            command.CommandType =
+                CommandType.StoredProcedure;
 
             connection.Open();
 
-            using SqlDataReader reader = command.ExecuteReader();
+            using SqlDataReader reader =
+                command.ExecuteReader();
 
             while (reader.Read())
             {
@@ -33,7 +36,8 @@ namespace ModernStore.Repositories
                     ),
 
                     Nombre =
-                        reader["nombre"].ToString() ?? string.Empty
+                        reader["nombre"].ToString()
+                        ?? string.Empty
                 });
             }
 
@@ -42,14 +46,16 @@ namespace ModernStore.Repositories
 
         public Categoria? ObtenerPorId(int idCategoria)
         {
-            using SqlConnection connection = Database.GetConnection();
+            using SqlConnection connection =
+                Database.GetConnection();
 
             using SqlCommand command = new SqlCommand(
                 "sp_Categoria_ObtenerPorId",
                 connection
             );
 
-            command.CommandType = CommandType.StoredProcedure;
+            command.CommandType =
+                CommandType.StoredProcedure;
 
             command.Parameters.Add(
                 "@id_categoria",
@@ -58,7 +64,8 @@ namespace ModernStore.Repositories
 
             connection.Open();
 
-            using SqlDataReader reader = command.ExecuteReader();
+            using SqlDataReader reader =
+                command.ExecuteReader();
 
             if (!reader.Read())
             {
@@ -72,50 +79,56 @@ namespace ModernStore.Repositories
                 ),
 
                 Nombre =
-                    reader["nombre"].ToString() ?? string.Empty
+                    reader["nombre"].ToString()
+                    ?? string.Empty
             };
         }
 
-        public void Crear(Categoria categoria)
+        public void Crear(
+            Categoria categoria,
+            int idUsuario)
         {
-            using SqlConnection connection = Database.GetConnection();
+            using SqlConnection connection =
+                Database.GetConnection();
 
             using SqlCommand command = new SqlCommand(
-                "sp_Categoria_Crear",
+                "sp_Categoria_Insertar",
                 connection
             );
 
-            command.CommandType = CommandType.StoredProcedure;
+            command.CommandType =
+                CommandType.StoredProcedure;
 
             command.Parameters.Add(
                 "@nombre",
                 SqlDbType.VarChar,
-                100
+                50
             ).Value = categoria.Nombre;
 
             command.Parameters.Add(
-                "@descripcion",
-                SqlDbType.VarChar,
-                255
-            ).Value = string.IsNullOrWhiteSpace(categoria.Descripcion)
-                ? DBNull.Value
-                : categoria.Descripcion;
+                "@id_usuario",
+                SqlDbType.Int
+            ).Value = idUsuario;
 
             connection.Open();
 
             command.ExecuteNonQuery();
         }
 
-        public void Actualizar(Categoria categoria)
+        public void Actualizar(
+            Categoria categoria,
+            int idUsuario)
         {
-            using SqlConnection connection = Database.GetConnection();
+            using SqlConnection connection =
+                Database.GetConnection();
 
             using SqlCommand command = new SqlCommand(
                 "sp_Categoria_Actualizar",
                 connection
             );
 
-            command.CommandType = CommandType.StoredProcedure;
+            command.CommandType =
+                CommandType.StoredProcedure;
 
             command.Parameters.Add(
                 "@id_categoria",
@@ -125,37 +138,43 @@ namespace ModernStore.Repositories
             command.Parameters.Add(
                 "@nombre",
                 SqlDbType.VarChar,
-                100
+                50
             ).Value = categoria.Nombre;
 
             command.Parameters.Add(
-                "@descripcion",
-                SqlDbType.VarChar,
-                255
-            ).Value = string.IsNullOrWhiteSpace(categoria.Descripcion)
-                ? DBNull.Value
-                : categoria.Descripcion;
+                "@id_usuario",
+                SqlDbType.Int
+            ).Value = idUsuario;
 
             connection.Open();
 
             command.ExecuteNonQuery();
         }
 
-        public void Eliminar(int idCategoria)
+        public void Eliminar(
+            int idCategoria,
+            int idUsuario)
         {
-            using SqlConnection connection = Database.GetConnection();
+            using SqlConnection connection =
+                Database.GetConnection();
 
             using SqlCommand command = new SqlCommand(
                 "sp_Categoria_Eliminar",
                 connection
             );
 
-            command.CommandType = CommandType.StoredProcedure;
+            command.CommandType =
+                CommandType.StoredProcedure;
 
             command.Parameters.Add(
                 "@id_categoria",
                 SqlDbType.Int
             ).Value = idCategoria;
+
+            command.Parameters.Add(
+                "@id_usuario",
+                SqlDbType.Int
+            ).Value = idUsuario;
 
             connection.Open();
 

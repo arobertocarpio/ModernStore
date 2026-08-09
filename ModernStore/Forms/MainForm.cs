@@ -51,5 +51,13 @@ namespace ModernStore.Forms
 
             productosForm.ShowDialog();
         }
+
+        private void btnCategorias_Click(object sender, EventArgs e)
+        {
+            using CategoriasForm categoriasForm =
+            new CategoriasForm(usuario);
+
+            categoriasForm.ShowDialog();
+        }
     }
 }

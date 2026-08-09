@@ -70,6 +70,7 @@
             btnCategorias.TabIndex = 2;
             btnCategorias.Text = "🏷️  Categorías";
             btnCategorias.UseVisualStyleBackColor = true;
+            btnCategorias.Click += btnCategorias_Click;
             // 
             // btnClientes
             // 
