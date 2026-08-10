@@ -39,6 +39,7 @@
             lblUsuario = new Label();
             btnProveedores = new Button();
             btnReportes = new Button();
+            btnCorteCaja = new Button();
             SuspendLayout();
             // 
             // btnPOS
@@ -66,7 +67,7 @@
             // btnCategorias
             // 
             btnCategorias.Font = new Font("Segoe UI", 12F);
-            btnCategorias.Location = new Point(60, 213);
+            btnCategorias.Location = new Point(60, 187);
             btnCategorias.Name = "btnCategorias";
             btnCategorias.Size = new Size(173, 32);
             btnCategorias.TabIndex = 2;
@@ -77,7 +78,7 @@
             // btnClientes
             // 
             btnClientes.Font = new Font("Segoe UI", 12F);
-            btnClientes.Location = new Point(239, 213);
+            btnClientes.Location = new Point(239, 187);
             btnClientes.Name = "btnClientes";
             btnClientes.Size = new Size(173, 32);
             btnClientes.TabIndex = 3;
@@ -88,7 +89,7 @@
             // btnUsuarios
             // 
             btnUsuarios.Font = new Font("Segoe UI", 12F);
-            btnUsuarios.Location = new Point(60, 268);
+            btnUsuarios.Location = new Point(60, 225);
             btnUsuarios.Name = "btnUsuarios";
             btnUsuarios.Size = new Size(173, 32);
             btnUsuarios.TabIndex = 4;
@@ -99,7 +100,7 @@
             // btnVentas
             // 
             btnVentas.Font = new Font("Segoe UI", 12F);
-            btnVentas.Location = new Point(239, 268);
+            btnVentas.Location = new Point(239, 225);
             btnVentas.Name = "btnVentas";
             btnVentas.Size = new Size(173, 32);
             btnVentas.TabIndex = 5;
@@ -141,7 +142,7 @@
             // btnProveedores
             // 
             btnProveedores.Font = new Font("Segoe UI", 12F);
-            btnProveedores.Location = new Point(60, 317);
+            btnProveedores.Location = new Point(60, 263);
             btnProveedores.Name = "btnProveedores";
             btnProveedores.Size = new Size(173, 32);
             btnProveedores.TabIndex = 9;
@@ -152,7 +153,7 @@
             // btnReportes
             // 
             btnReportes.Font = new Font("Segoe UI", 12F);
-            btnReportes.Location = new Point(239, 317);
+            btnReportes.Location = new Point(239, 263);
             btnReportes.Name = "btnReportes";
             btnReportes.Size = new Size(173, 32);
             btnReportes.TabIndex = 10;
@@ -160,11 +161,23 @@
             btnReportes.UseVisualStyleBackColor = true;
             btnReportes.Click += btnReportes_Click;
             // 
+            // btnCorteCaja
+            // 
+            btnCorteCaja.Font = new Font("Segoe UI", 12F);
+            btnCorteCaja.Location = new Point(60, 301);
+            btnCorteCaja.Name = "btnCorteCaja";
+            btnCorteCaja.Size = new Size(173, 32);
+            btnCorteCaja.TabIndex = 11;
+            btnCorteCaja.Text = "💰 Corte de caja";
+            btnCorteCaja.UseVisualStyleBackColor = true;
+            btnCorteCaja.Click += btnCorteCaja_Click;
+            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(477, 450);
+            Controls.Add(btnCorteCaja);
             Controls.Add(btnReportes);
             Controls.Add(btnProveedores);
             Controls.Add(lblUsuario);
@@ -195,5 +208,6 @@
         private Label lblUsuario;
         private Button btnProveedores;
         private Button btnReportes;
+        private Button btnCorteCaja;
     }
 }

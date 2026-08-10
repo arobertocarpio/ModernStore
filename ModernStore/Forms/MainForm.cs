@@ -214,5 +214,13 @@ namespace ModernStore.Forms
 
             reportesForm.ShowDialog();
         }
+
+        private void btnCorteCaja_Click(object sender, EventArgs e)
+        {
+            using CorteCajaForm corteCajaForm =
+                new CorteCajaForm();
+
+            corteCajaForm.ShowDialog();
+        }
     }
 }
