@@ -5,8 +5,22 @@ using System.Data;
 
 namespace ModernStore.Repositories
 {
+    /// <summary>
+    /// Repositorio encargado de administrar las operaciones
+    /// relacionadas con las categorías de productos.
+    /// 
+    /// Todas las operaciones se realizan mediante
+    /// procedimientos almacenados definidos en SQL Server.
+    /// </summary>
     public class CategoriaRepository
     {
+        /// <summary>
+        /// Obtiene todas las categorías registradas
+        /// en la base de datos.
+        /// </summary>
+        /// <returns>
+        /// Lista de objetos Categoria.
+        /// </returns>
         public List<Categoria> Listar()
         {
             var categorias = new List<Categoria>();
@@ -44,6 +58,17 @@ namespace ModernStore.Repositories
             return categorias;
         }
 
+        /// <summary>
+        /// Obtiene una categoría específica mediante
+        /// su identificador.
+        /// </summary>
+        /// <param name="idCategoria">
+        /// Identificador de la categoría que se desea consultar.
+        /// </param>
+        /// <returns>
+        /// Objeto Categoria si el registro existe;
+        /// de lo contrario, null.
+        /// </returns>
         public Categoria? ObtenerPorId(int idCategoria)
         {
             using SqlConnection connection =
@@ -84,6 +109,16 @@ namespace ModernStore.Repositories
             };
         }
 
+        /// <summary>
+        /// Registra una nueva categoría en la base de datos.
+        /// </summary>
+        /// <param name="categoria">
+        /// Categoría que se desea registrar.
+        /// </param>
+        /// <param name="idUsuario">
+        /// Identificador del usuario que realiza la operación.
+        /// Se utiliza para registrar la acción en la bitácora.
+        /// </param>
         public void Crear(
             Categoria categoria,
             int idUsuario)
@@ -115,6 +150,15 @@ namespace ModernStore.Repositories
             command.ExecuteNonQuery();
         }
 
+        /// <summary>
+        /// Actualiza la información de una categoría existente.
+        /// </summary>
+        /// <param name="categoria">
+        /// Categoría con los datos modificados.
+        /// </param>
+        /// <param name="idUsuario">
+        /// Identificador del usuario que realiza la operación.
+        /// </param>
         public void Actualizar(
             Categoria categoria,
             int idUsuario)
@@ -151,6 +195,15 @@ namespace ModernStore.Repositories
             command.ExecuteNonQuery();
         }
 
+        /// <summary>
+        /// Elimina una categoría de la base de datos.
+        /// </summary>
+        /// <param name="idCategoria">
+        /// Identificador de la categoría que se desea eliminar.
+        /// </param>
+        /// <param name="idUsuario">
+        /// Identificador del usuario que ejecuta la operación.
+        /// </param>
         public void Eliminar(
             int idCategoria,
             int idUsuario)

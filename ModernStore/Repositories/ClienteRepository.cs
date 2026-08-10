@@ -5,8 +5,22 @@ using System.Data;
 
 namespace ModernStore.Repositories
 {
+    /// <summary>
+    /// Repositorio encargado de gestionar las operaciones
+    /// relacionadas con los clientes del sistema.
+    ///
+    /// Utiliza procedimientos almacenados para consultar,
+    /// registrar, actualizar y eliminar clientes.
+    /// </summary>
     public class ClienteRepository
     {
+        /// <summary>
+        /// Obtiene todos los clientes registrados
+        /// en la base de datos.
+        /// </summary>
+        /// <returns>
+        /// Lista de objetos Cliente.
+        /// </returns>
         public List<Cliente> Listar()
         {
             var clientes = new List<Cliente>();
@@ -59,6 +73,17 @@ namespace ModernStore.Repositories
             return clientes;
         }
 
+        /// <summary>
+        /// Registra un nuevo cliente en la base de datos.
+        /// </summary>
+        /// <param name="cliente">
+        /// Cliente que se desea registrar.
+        /// </param>
+        /// <param name="idUsuario">
+        /// Identificador del usuario que realiza la operación.
+        /// Este valor se utiliza para registrar la acción
+        /// correspondiente en la bitácora.
+        /// </param>
         public void Crear(
             Cliente cliente,
             int idUsuario)
@@ -86,6 +111,15 @@ namespace ModernStore.Repositories
             command.ExecuteNonQuery();
         }
 
+        /// <summary>
+        /// Actualiza la información de un cliente existente.
+        /// </summary>
+        /// <param name="cliente">
+        /// Cliente que contiene los datos actualizados.
+        /// </param>
+        /// <param name="idUsuario">
+        /// Identificador del usuario que ejecuta la modificación.
+        /// </param>
         public void Actualizar(
             Cliente cliente,
             int idUsuario)
@@ -118,6 +152,15 @@ namespace ModernStore.Repositories
             command.ExecuteNonQuery();
         }
 
+        /// <summary>
+        /// Elimina un cliente de la base de datos.
+        /// </summary>
+        /// <param name="idCliente">
+        /// Identificador del cliente que se desea eliminar.
+        /// </param>
+        /// <param name="idUsuario">
+        /// Identificador del usuario que ejecuta la operación.
+        /// </param>
         public void Eliminar(
             int idCliente,
             int idUsuario)
@@ -148,6 +191,19 @@ namespace ModernStore.Repositories
             command.ExecuteNonQuery();
         }
 
+        /// <summary>
+        /// Agrega al comando SQL los parámetros comunes
+        /// utilizados para crear o actualizar un cliente.
+        ///
+        /// Los campos opcionales se envían como DBNull
+        /// cuando no contienen información.
+        /// </summary>
+        /// <param name="command">
+        /// Comando SQL al que se agregarán los parámetros.
+        /// </param>
+        /// <param name="cliente">
+        /// Cliente del cual se obtienen los valores.
+        /// </param>
         private static void AgregarParametros(
             SqlCommand command,
             Cliente cliente)

@@ -5,8 +5,24 @@ using System.Data;
 
 namespace ModernStore.Repositories
 {
+    /// <summary>
+    /// Repositorio encargado de administrar las operaciones
+    /// relacionadas con las ventas del sistema.
+    ///
+    /// Permite consultar el historial de ventas, obtener
+    /// el detalle de una venta y registrar nuevas ventas
+    /// mediante procedimientos almacenados en SQL Server.
+    /// </summary>
     public class VentaRepository
-    { 
+    {
+        /// <summary>
+        /// Obtiene todas las ventas registradas
+        /// en la base de datos.
+        /// </summary>
+        /// <returns>
+        /// Lista de objetos Venta con la información
+        /// general de cada operación.
+        /// </returns>
         public List<Venta> Listar()
         {
             var ventas = new List<Venta>();
@@ -78,6 +94,18 @@ namespace ModernStore.Repositories
             return ventas;
         }
 
+        /// <summary>
+        /// Obtiene los productos y cantidades asociados
+        /// a una venta específica.
+        /// </summary>
+        /// <param name="idVenta">
+        /// Identificador de la venta cuyo detalle
+        /// se desea consultar.
+        /// </param>
+        /// <returns>
+        /// Lista de objetos DetalleVenta correspondientes
+        /// a la venta seleccionada.
+        /// </returns>
         public List<DetalleVenta> ObtenerDetalle(
             int idVenta)
         {
@@ -148,6 +176,35 @@ namespace ModernStore.Repositories
             return detalles;
         }
 
+        /// <summary>
+        /// Registra una nueva venta en la base de datos.
+        ///
+        /// La operación envía el detalle de productos mediante
+        /// un parámetro estructurado de tipo DetalleVentaType.
+        /// El procedimiento almacenado se encarga de validar
+        /// la venta, registrar su detalle y actualizar el stock.
+        /// </summary>
+        /// <param name="idUsuario">
+        /// Identificador del usuario que registra la venta.
+        /// </param>
+        /// <param name="idCliente">
+        /// Identificador del cliente asociado a la venta.
+        /// Puede ser null cuando se utiliza el cliente
+        /// predeterminado del sistema.
+        /// </param>
+        /// <param name="detalle">
+        /// Tabla en memoria que contiene los productos
+        /// y cantidades que forman parte de la venta.
+        /// </param>
+        /// <returns>
+        /// Tupla que contiene el identificador de la venta,
+        /// el total registrado y el mensaje devuelto
+        /// por el procedimiento almacenado.
+        /// </returns>
+        /// <exception cref="Exception">
+        /// Se lanza cuando el procedimiento almacenado
+        /// no devuelve información sobre la venta registrada.
+        /// </exception>
         public (
             int IdVenta,
             decimal Total,
@@ -180,6 +237,8 @@ namespace ModernStore.Repositories
                     : DBNull.Value
             );
 
+            // El detalle de la venta se envía como un
+            // Table-Valued Parameter definido en SQL Server.
             SqlParameter detalleParameter =
                 command.Parameters.AddWithValue(
                     "@detalle",

@@ -5,8 +5,22 @@ using System.Data;
 
 namespace ModernStore.Repositories
 {
+    /// <summary>
+    /// Repositorio encargado de administrar las operaciones
+    /// relacionadas con los proveedores del sistema.
+    ///
+    /// Permite consultar, registrar, actualizar y eliminar
+    /// proveedores mediante procedimientos almacenados.
+    /// </summary>
     public class ProveedorRepository
     {
+        /// <summary>
+        /// Obtiene todos los proveedores registrados
+        /// en la base de datos.
+        /// </summary>
+        /// <returns>
+        /// Lista de objetos Proveedor.
+        /// </returns>
         public List<Proveedor> Listar()
         {
             var proveedores = new List<Proveedor>();
@@ -55,6 +69,17 @@ namespace ModernStore.Repositories
             return proveedores;
         }
 
+        /// <summary>
+        /// Registra un nuevo proveedor en la base de datos.
+        /// </summary>
+        /// <param name="proveedor">
+        /// Proveedor que contiene la información
+        /// que será registrada.
+        /// </param>
+        /// <param name="idUsuario">
+        /// Identificador del usuario que realiza la operación.
+        /// Este valor permite registrar la acción en la bitácora.
+        /// </param>
         public void Crear(
             Proveedor proveedor,
             int idUsuario)
@@ -81,7 +106,9 @@ namespace ModernStore.Repositories
                 SqlDbType.VarChar,
                 15
             ).Value =
-                string.IsNullOrWhiteSpace(proveedor.Telefono)
+                string.IsNullOrWhiteSpace(
+                    proveedor.Telefono
+                )
                     ? DBNull.Value
                     : proveedor.Telefono;
 
@@ -90,7 +117,9 @@ namespace ModernStore.Repositories
                 SqlDbType.VarChar,
                 100
             ).Value =
-                string.IsNullOrWhiteSpace(proveedor.Correo)
+                string.IsNullOrWhiteSpace(
+                    proveedor.Correo
+                )
                     ? DBNull.Value
                     : proveedor.Correo;
 
@@ -104,6 +133,16 @@ namespace ModernStore.Repositories
             command.ExecuteNonQuery();
         }
 
+        /// <summary>
+        /// Actualiza la información de un proveedor existente.
+        /// </summary>
+        /// <param name="proveedor">
+        /// Proveedor que contiene la información actualizada.
+        /// </param>
+        /// <param name="idUsuario">
+        /// Identificador del usuario que realiza
+        /// la modificación.
+        /// </param>
         public void Actualizar(
             Proveedor proveedor,
             int idUsuario)
@@ -135,7 +174,9 @@ namespace ModernStore.Repositories
                 SqlDbType.VarChar,
                 15
             ).Value =
-                string.IsNullOrWhiteSpace(proveedor.Telefono)
+                string.IsNullOrWhiteSpace(
+                    proveedor.Telefono
+                )
                     ? DBNull.Value
                     : proveedor.Telefono;
 
@@ -144,7 +185,9 @@ namespace ModernStore.Repositories
                 SqlDbType.VarChar,
                 100
             ).Value =
-                string.IsNullOrWhiteSpace(proveedor.Correo)
+                string.IsNullOrWhiteSpace(
+                    proveedor.Correo
+                )
                     ? DBNull.Value
                     : proveedor.Correo;
 
@@ -158,6 +201,15 @@ namespace ModernStore.Repositories
             command.ExecuteNonQuery();
         }
 
+        /// <summary>
+        /// Elimina un proveedor de la base de datos.
+        /// </summary>
+        /// <param name="idProveedor">
+        /// Identificador del proveedor que se desea eliminar.
+        /// </param>
+        /// <param name="idUsuario">
+        /// Identificador del usuario que ejecuta la operación.
+        /// </param>
         public void Eliminar(
             int idProveedor,
             int idUsuario)

@@ -39,6 +39,8 @@
             label3 = new Label();
             label4 = new Label();
             btnQuitar = new Button();
+            cmbCliente = new ComboBox();
+            label5 = new Label();
             ((System.ComponentModel.ISupportInitialize)dgvProductos).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dgvCarrito).BeginInit();
             SuspendLayout();
@@ -142,11 +144,31 @@
             btnQuitar.UseVisualStyleBackColor = true;
             btnQuitar.Click += btnQuitar_Click;
             // 
+            // cmbCliente
+            // 
+            cmbCliente.FormattingEnabled = true;
+            cmbCliente.Location = new Point(303, 38);
+            cmbCliente.Name = "cmbCliente";
+            cmbCliente.Size = new Size(178, 23);
+            cmbCliente.TabIndex = 11;
+            // 
+            // label5
+            // 
+            label5.AutoSize = true;
+            label5.Font = new Font("Segoe UI", 12F);
+            label5.Location = new Point(303, 14);
+            label5.Name = "label5";
+            label5.Size = new Size(61, 21);
+            label5.TabIndex = 12;
+            label5.Text = "Cliente:";
+            // 
             // POSForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 503);
+            Controls.Add(label5);
+            Controls.Add(cmbCliente);
             Controls.Add(btnQuitar);
             Controls.Add(label4);
             Controls.Add(label3);
@@ -179,5 +201,7 @@
         private Label label3;
         private Label label4;
         private Button btnQuitar;
+        private ComboBox cmbCliente;
+        private Label label5;
     }
 }

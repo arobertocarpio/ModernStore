@@ -5,8 +5,34 @@ using System.Data;
 
 namespace ModernStore.Repositories
 {
+    /// <summary>
+    /// Repositorio encargado de administrar las operaciones
+    /// relacionadas con los usuarios y la autenticación.
+    ///
+    /// Permite autenticar usuarios, consultar cuentas,
+    /// registrar y actualizar usuarios, cambiar contraseñas
+    /// y controlar el estado activo o inactivo de las cuentas.
+    ///
+    /// Las contraseñas son protegidas mediante BCrypt antes
+    /// de almacenarse en la base de datos.
+    /// </summary>
     public class UsuarioRepository
     {
+        /// <summary>
+        /// Valida las credenciales de un usuario e inicia
+        /// la construcción de su información de sesión.
+        /// </summary>
+        /// <param name="nombreUsuario">
+        /// Nombre de usuario utilizado para iniciar sesión.
+        /// </param>
+        /// <param name="contrasena">
+        /// Contraseña ingresada por el usuario.
+        /// </param>
+        /// <returns>
+        /// Un objeto UsuarioSesion cuando las credenciales
+        /// son correctas y la cuenta se encuentra activa;
+        /// de lo contrario, null.
+        /// </returns>
         public UsuarioSesion? Autenticar(
             string nombreUsuario,
             string contrasena)
@@ -33,6 +59,8 @@ namespace ModernStore.Repositories
             using SqlDataReader reader =
                 command.ExecuteReader();
 
+            // Si el nombre de usuario no existe,
+            // la autenticación es rechazada.
             if (!reader.Read())
             {
                 return null;
@@ -42,6 +70,8 @@ namespace ModernStore.Repositories
                 reader["contrasena_hash"].ToString()
                 ?? string.Empty;
 
+            // BCrypt compara la contraseña ingresada
+            // con el hash almacenado en la base de datos.
             if (!BCrypt.Net.BCrypt.Verify(
                 contrasena,
                 hash))
@@ -54,6 +84,8 @@ namespace ModernStore.Repositories
                     reader["activo"]
                 );
 
+            // Las cuentas inactivas no pueden
+            // iniciar sesión en el sistema.
             if (!activo)
             {
                 return null;
@@ -85,7 +117,8 @@ namespace ModernStore.Repositories
                     ?? string.Empty,
 
                 NombreCompleto =
-                    $"{nombre} {apellidoPaterno} {apellidoMaterno}".Trim(),
+                    $"{nombre} {apellidoPaterno} {apellidoMaterno}"
+                    .Trim(),
 
                 Rol =
                     reader["rol"].ToString()
@@ -93,9 +126,18 @@ namespace ModernStore.Repositories
             };
         }
 
+        /// <summary>
+        /// Obtiene todos los usuarios registrados
+        /// en el sistema.
+        /// </summary>
+        /// <returns>
+        /// Lista de usuarios con su información,
+        /// rol y estado actual.
+        /// </returns>
         public List<Usuario> Listar()
         {
-            var usuarios = new List<Usuario>();
+            var usuarios =
+                new List<Usuario>();
 
             using SqlConnection connection =
                 Database.GetConnection();
@@ -158,13 +200,33 @@ namespace ModernStore.Repositories
             return usuarios;
         }
 
+        /// <summary>
+        /// Registra un nuevo usuario en el sistema.
+        ///
+        /// La contraseña recibida es convertida en un hash
+        /// mediante BCrypt antes de enviarse a la base de datos.
+        /// </summary>
+        /// <param name="usuario">
+        /// Usuario que contiene la información
+        /// que será registrada.
+        /// </param>
+        /// <param name="contrasena">
+        /// Contraseña definida para la nueva cuenta.
+        /// </param>
+        /// <param name="idUsuarioEjecutor">
+        /// Identificador del usuario que realiza
+        /// la creación de la cuenta.
+        /// </param>
         public void Crear(
             Usuario usuario,
             string contrasena,
             int idUsuarioEjecutor)
         {
+            // Nunca se almacena directamente la contraseña.
             string hash =
-                BCrypt.Net.BCrypt.HashPassword(contrasena);
+                BCrypt.Net.BCrypt.HashPassword(
+                    contrasena
+                );
 
             using SqlConnection connection =
                 Database.GetConnection();
@@ -199,7 +261,9 @@ namespace ModernStore.Repositories
                 SqlDbType.VarChar,
                 50
             ).Value =
-                string.IsNullOrWhiteSpace(usuario.ApellidoMaterno)
+                string.IsNullOrWhiteSpace(
+                    usuario.ApellidoMaterno
+                )
                     ? DBNull.Value
                     : usuario.ApellidoMaterno;
 
@@ -225,6 +289,19 @@ namespace ModernStore.Repositories
             command.ExecuteNonQuery();
         }
 
+        /// <summary>
+        /// Actualiza la información general y el rol
+        /// de un usuario existente.
+        ///
+        /// La contraseña no se modifica mediante este método.
+        /// </summary>
+        /// <param name="usuario">
+        /// Usuario con la información actualizada.
+        /// </param>
+        /// <param name="idUsuarioEjecutor">
+        /// Identificador del usuario que realiza
+        /// la modificación.
+        /// </param>
         public void Actualizar(
             Usuario usuario,
             int idUsuarioEjecutor)
@@ -267,7 +344,9 @@ namespace ModernStore.Repositories
                 SqlDbType.VarChar,
                 50
             ).Value =
-                string.IsNullOrWhiteSpace(usuario.ApellidoMaterno)
+                string.IsNullOrWhiteSpace(
+                    usuario.ApellidoMaterno
+                )
                     ? DBNull.Value
                     : usuario.ApellidoMaterno;
 
@@ -287,13 +366,31 @@ namespace ModernStore.Repositories
             command.ExecuteNonQuery();
         }
 
+        /// <summary>
+        /// Cambia la contraseña de un usuario.
+        ///
+        /// La nueva contraseña es protegida mediante BCrypt
+        /// antes de ser enviada a la base de datos.
+        /// </summary>
+        /// <param name="idUsuario">
+        /// Identificador del usuario cuya contraseña
+        /// será modificada.
+        /// </param>
+        /// <param name="nuevaContrasena">
+        /// Nueva contraseña definida para la cuenta.
+        /// </param>
+        /// <param name="idUsuarioEjecutor">
+        /// Identificador del usuario que ejecuta el cambio.
+        /// </param>
         public void CambiarContrasena(
             int idUsuario,
             string nuevaContrasena,
             int idUsuarioEjecutor)
         {
             string hash =
-                BCrypt.Net.BCrypt.HashPassword(nuevaContrasena);
+                BCrypt.Net.BCrypt.HashPassword(
+                    nuevaContrasena
+                );
 
             using SqlConnection connection =
                 Database.GetConnection();
@@ -327,6 +424,18 @@ namespace ModernStore.Repositories
             command.ExecuteNonQuery();
         }
 
+        /// <summary>
+        /// Desactiva una cuenta de usuario.
+        ///
+        /// Una cuenta inactiva no puede autenticarse
+        /// en el sistema.
+        /// </summary>
+        /// <param name="idUsuario">
+        /// Identificador del usuario que será desactivado.
+        /// </param>
+        /// <param name="idUsuarioEjecutor">
+        /// Identificador del usuario que ejecuta la operación.
+        /// </param>
         public void Desactivar(
             int idUsuario,
             int idUsuarioEjecutor)
@@ -357,6 +466,16 @@ namespace ModernStore.Repositories
             command.ExecuteNonQuery();
         }
 
+        /// <summary>
+        /// Reactiva una cuenta de usuario previamente
+        /// desactivada.
+        /// </summary>
+        /// <param name="idUsuario">
+        /// Identificador del usuario que será reactivado.
+        /// </param>
+        /// <param name="idUsuarioEjecutor">
+        /// Identificador del usuario que ejecuta la operación.
+        /// </param>
         public void Reactivar(
             int idUsuario,
             int idUsuarioEjecutor)
