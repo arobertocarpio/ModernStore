@@ -104,6 +104,7 @@
             btnVentas.TabIndex = 5;
             btnVentas.Text = "📊  Ventas / Reportes";
             btnVentas.UseVisualStyleBackColor = true;
+            btnVentas.Click += btnVentas_Click;
             // 
             // btnCerrarSesion
             // 
