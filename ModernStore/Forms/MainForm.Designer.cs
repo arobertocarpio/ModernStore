@@ -38,6 +38,7 @@
             label1 = new Label();
             lblUsuario = new Label();
             btnProveedores = new Button();
+            btnReportes = new Button();
             SuspendLayout();
             // 
             // btnPOS
@@ -102,7 +103,7 @@
             btnVentas.Name = "btnVentas";
             btnVentas.Size = new Size(173, 32);
             btnVentas.TabIndex = 5;
-            btnVentas.Text = "📊  Ventas / Reportes";
+            btnVentas.Text = "📊  Ventas";
             btnVentas.UseVisualStyleBackColor = true;
             btnVentas.Click += btnVentas_Click;
             // 
@@ -148,11 +149,23 @@
             btnProveedores.UseVisualStyleBackColor = true;
             btnProveedores.Click += btnProveedores_Click;
             // 
+            // btnReportes
+            // 
+            btnReportes.Font = new Font("Segoe UI", 12F);
+            btnReportes.Location = new Point(239, 317);
+            btnReportes.Name = "btnReportes";
+            btnReportes.Size = new Size(173, 32);
+            btnReportes.TabIndex = 10;
+            btnReportes.Text = "📊 Reportes";
+            btnReportes.UseVisualStyleBackColor = true;
+            btnReportes.Click += btnReportes_Click;
+            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(477, 450);
+            Controls.Add(btnReportes);
             Controls.Add(btnProveedores);
             Controls.Add(lblUsuario);
             Controls.Add(label1);
@@ -181,5 +194,6 @@
         private Label label1;
         private Label lblUsuario;
         private Button btnProveedores;
+        private Button btnReportes;
     }
 }

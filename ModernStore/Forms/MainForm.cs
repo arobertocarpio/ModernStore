@@ -1,4 +1,5 @@
 ﻿using ModernStore.Models;
+using ModernStore.Repositories;
 
 namespace ModernStore.Forms
 {
@@ -14,6 +15,10 @@ namespace ModernStore.Forms
 
             lblUsuario.Text =
                 $"{usuario.NombreCompleto} | {usuario.Rol}";
+
+            AplicarPermisos();
+            RevisarStockBajo();
+            RevisarProductosPorCaducar();
         }
 
         private void btnPOS_Click(object sender, EventArgs e)
@@ -94,6 +99,120 @@ namespace ModernStore.Forms
                 new VentasForm();
 
             ventasForm.ShowDialog();
+        }
+
+        private void AplicarPermisos()
+        {
+            bool esAdministrador =
+                usuario.Rol.Equals(
+                    "Administrador",
+                    StringComparison.OrdinalIgnoreCase
+                );
+
+            // Todos pueden usar estas opciones
+            btnPOS.Enabled = true;
+            btnClientes.Enabled = true;
+            btnVentas.Enabled = true;
+
+            // Solo administrador
+            btnProductos.Enabled = esAdministrador;
+            btnCategorias.Enabled = esAdministrador;
+            btnProveedores.Enabled = esAdministrador;
+            btnUsuarios.Enabled = esAdministrador;
+            btnReportes.Enabled = esAdministrador;
+        }
+
+        private void RevisarStockBajo()
+        {
+            try
+            {
+                ProductoRepository productoRepository =
+                    new ProductoRepository();
+
+                var productosBajoStock =
+                    productoRepository.ListarBajoStock();
+
+                if (productosBajoStock.Count == 0)
+                {
+                    return;
+                }
+
+                string mensaje =
+                    "Los siguientes productos tienen stock bajo:\n\n";
+
+                foreach (var producto in productosBajoStock)
+                {
+                    mensaje +=
+                        $"• {producto.Nombre}: {producto.Stock} unidades\n";
+                }
+
+                MessageBox.Show(
+                    mensaje,
+                    "Alerta de stock bajo",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning
+                );
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    $"No se pudo revisar el stock.\n\n{ex.Message}",
+                    "Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
+            }
+        }
+
+        private void RevisarProductosPorCaducar()
+        {
+            try
+            {
+                ProductoRepository productoRepository =
+                    new ProductoRepository();
+
+                var productos =
+                    productoRepository.ListarProximosCaducar();
+
+                if (productos.Count == 0)
+                {
+                    return;
+                }
+
+                string mensaje =
+                    "Los siguientes productos están próximos a caducar:\n\n";
+
+                foreach (var item in productos)
+                {
+                    mensaje +=
+                        $"• {item.Producto.Nombre} - " +
+                        $"{item.DiasParaCaducar} días restantes\n";
+                }
+
+                MessageBox.Show(
+                    mensaje,
+                    "Alerta de caducidad",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning
+                );
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    $"No se pudo revisar la caducidad de los productos.\n\n{ex.Message}",
+                    "Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
+            }
+        }
+
+        private void btnReportes_Click(object sender, EventArgs e)
+        {
+            using ReportesForm reportesForm =
+                new ReportesForm();
+
+            reportesForm.ShowDialog();
         }
     }
 }

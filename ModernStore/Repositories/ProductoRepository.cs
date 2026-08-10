@@ -283,5 +283,101 @@ namespace ModernStore.Repositories
                 ? producto.FechaCaducidad.Value
                 : DBNull.Value;
         }
+
+        public List<Producto> ListarBajoStock()
+        {
+            var productos = new List<Producto>();
+
+            using SqlConnection connection =
+                Database.GetConnection();
+
+            using SqlCommand command = new SqlCommand(
+                "sp_Producto_ListarBajoStock",
+                connection
+            );
+
+            command.CommandType =
+                CommandType.StoredProcedure;
+
+            connection.Open();
+
+            using SqlDataReader reader =
+                command.ExecuteReader();
+
+            while (reader.Read())
+            {
+                productos.Add(new Producto
+                {
+                    IdProducto =
+                        Convert.ToInt32(reader["id_producto"]),
+
+                    Nombre =
+                        reader["nombre"].ToString()
+                        ?? string.Empty,
+
+                    Stock =
+                        Convert.ToInt32(reader["stock"]),
+
+                    Precio =
+                        Convert.ToDecimal(reader["precio"])
+                });
+            }
+
+            return productos;
+        }
+
+        public List<(Producto Producto, int DiasParaCaducar)> ListarProximosCaducar()
+        {
+            var productos =
+                new List<(Producto Producto, int DiasParaCaducar)>();
+
+            using SqlConnection connection =
+                Database.GetConnection();
+
+            using SqlCommand command = new SqlCommand(
+                "sp_Producto_ListarProximosCaducar",
+                connection
+            );
+
+            command.CommandType =
+                CommandType.StoredProcedure;
+
+            connection.Open();
+
+            using SqlDataReader reader =
+                command.ExecuteReader();
+
+            while (reader.Read())
+            {
+                Producto producto = new Producto
+                {
+                    IdProducto =
+                        Convert.ToInt32(reader["id_producto"]),
+
+                    Nombre =
+                        reader["nombre"].ToString()
+                        ?? string.Empty,
+
+                    Stock =
+                        Convert.ToInt32(reader["stock"]),
+
+                    FechaCaducidad =
+                        Convert.ToDateTime(
+                            reader["fecha_caducidad"]
+                        )
+                };
+
+                int diasParaCaducar =
+                    Convert.ToInt32(
+                        reader["dias_para_caducar"]
+                    );
+
+                productos.Add(
+                    (producto, diasParaCaducar)
+                );
+            }
+
+            return productos;
+        }
     }
 }
